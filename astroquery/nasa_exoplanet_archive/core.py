@@ -281,7 +281,7 @@ class NasaExoplanetArchiveClass(BaseQuery):
     # Needs to be updated
     @class_or_instance
     def query_object_async(self, object_name, *, table="ps", get_query_payload=False,
-                           cache=None, regularize=False, **criteria):
+                           cache=None, regularize=True, **criteria):
         """
         Search the tables of confirmed exoplanets for information about a planet or planet host
 
@@ -297,8 +297,7 @@ class NasaExoplanetArchiveClass(BaseQuery):
         ----------
         object_name : str
             The name of the planet or star.  If ``regularize`` is ``True``, an attempt will be made
-            to regularize this name using the ``aliastable`` table. _This defaults to ``False`` while
-            the ``aliastable`` is being migrated to the TAP service in Archive 2.0._
+            to regularize this name using the ``aliastable`` table. Defaults to ``True``.
         table : [``"ps"`` or ``"pscomppars"``], optional
             The table to query, must be one of the supported tables: ``"ps"`` or ``"exomultpars"``.
             Defaults to ``"ps"``.
@@ -308,8 +307,7 @@ class NasaExoplanetArchiveClass(BaseQuery):
             Should the request result be cached? This can be useful for large repeated queries,
             but since the data in the archive is updated regularly, this defaults to ``False``.
         regularize : bool, optional
-            If ``True``, the ``aliastable`` will be used to regularize the target name. _Note that the
-            ``aliastable`` will be unavailable while migrating to the TAP service in Archive 2.0._ 
+            If ``True``, the ``aliastable`` will be used to regularize the target name. 
         **criteria
             Any other filtering criteria to apply. Values provided using the ``where`` keyword will
             be ignored.
@@ -339,7 +337,6 @@ class NasaExoplanetArchiveClass(BaseQuery):
             )
 
         if regularize:
-            warnings.warn("The ``aliastable`` will be unavailable while migrating to the TAP service in Archive 2.0.", InputWarning, )
             object_name = self._regularize_object_name(object_name)
 
         if "where" in criteria:
