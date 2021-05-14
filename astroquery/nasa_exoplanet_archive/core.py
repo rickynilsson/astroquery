@@ -82,7 +82,7 @@ UNIT_MAPPER = {
 }
 
 # Converter for converting raw string values from the table into numeric data types. Dictionary items will be converters (converter function, converter type tuples) for consecutive columns.
-CONVERTERS = dict(koi_quarters=[ascii.convert_numpy(np.str)])
+CONVERTERS = dict(koi_quarters=[ascii.convert_numpy(str)])
 
 # 'ps' and 'pscomppars' are the main tables of detected exoplanets. Calls to the old tables ('exoplanets', 'compositepars', 'exomultpars') will return errors and urge the user to call the 'ps' or 'pscomppars' tables
 OBJECT_TABLES = {"ps": "pl_", "pscomppars": "pl_", "exoplanets": "pl_", "compositepars": "fpl_", "exomultpars": "mpl_"}
